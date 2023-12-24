@@ -1,0 +1,76 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+class Disjoint_set{
+public:
+vector<int>rank;
+vector<int>size;
+ vector<int>parent;
+//constructor
+Disjoint_set(int n){
+    rank.resize(n,0);
+    parent.resize(n);
+    parent.resize(n,1);
+    for(int i=0;i<n;i++){
+        parent[i]=i;
+    }
+}
+
+
+int findParent(int a){
+    if(parent[a]==a){
+        return a;
+    }
+    int ultiParent=findParent(parent[a]);
+    parent[a]=ultiParent;
+    return parent[a];
+}
+//union using rank concept
+void UnionByRank(int x,int y){
+    
+        int x_p=findParent(x);
+        int y_p=findParent(y);
+        if(x_p==y_p){
+            cout<<"don nothing same parent";
+            return;
+        }
+        if (rank[x_p] == rank[y_p]) {
+        rank[x_p]++;
+        parent[y_p] = x_p;
+        }
+         else if(rank[x_p]>rank[y_p]) {
+             parent[y_p]=x_p;
+
+        }
+        else{
+            parent[x_p]=y_p;
+        }
+    
+}
+//union using size concept
+void UnionBySize(int x,int y){
+    
+        int x_p=findParent(x);
+        int y_p=findParent(y);
+        if(x_p==y_p){
+           // cout<<"don nothing same parent";
+            return;
+        }
+        if (size[x_p] == size[y_p]) {
+        size[x_p]+=size[y_p];
+        parent[y_p] = x_p;
+        }
+         else if(size[x_p]>size[y_p]) {
+             size[x_p]+=size[y_p];
+             parent[y_p]=x_p;
+
+        }
+        else{
+              size[y_p]+=size[x_p];
+            parent[x_p]=y_p;
+        }
+    
+}
+
+
+};
