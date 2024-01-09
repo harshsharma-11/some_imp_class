@@ -1,0 +1,17 @@
+cloudinary upload image
+//posting image to cloudinary https://api.cloudinary.com/v1_1/<cloud name>/<resource_type>/upload
+
+
+  const postDetails=()=>{
+    const data=new FormData();
+    data.append('file',image);
+    data.append('upload_preset','friendsflow');
+    data.append('cloud_name','harshcloud11');
+    fetch('https://api.cloudinary.com/v1_1/harshcloud11/image/upload',{
+      method:'post',
+      body:data,
+    }).then(res=>res.json())
+    .then(data=>console.log(data))
+    .catch(err=>console.log(err));
+    
+  }
